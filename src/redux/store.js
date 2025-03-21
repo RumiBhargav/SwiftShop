@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import AuthReducer from "./reducers/AuthReducer";
+import loggerMiddleware from "./logger.middleware";
 const  store=configureStore({
     reducer:{
         auth:AuthReducer,
@@ -8,4 +9,4 @@ const  store=configureStore({
 });
 export default store;
 // all reducers state
-export const AuthSelector=(state)=>state.auth;
+export const authSelector=(state)=>state.auth;

@@ -1,7 +1,13 @@
 import React from "react";
 import { icons } from "../assets";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { authSelector } from "../redux/store";
+import { logoutUser } from "../redux/reducers/AuthReducer";
 const Navbar = () => {
+  const { user } = useSelector(authSelector);
+  const dispatch = useDispatch();
+
   return (
     <>
       <div className="flex items-center justify-between h-20 bg-white shadow-lg">
@@ -38,10 +44,16 @@ const Navbar = () => {
           <Link to="/about">About</Link>
           <Link to="/contact">Contact</Link>
         </div>
-        <div className="mr-12 mt-6 text-2xl mb-6" >
-          <Link to="/login" >
-            <icons.BsBoxArrowInRight />
-          </Link>
+        <div className="mr-12 mt-6 text-2xl mb-6">
+          {user ? (
+            <button onClick={() => dispatch(logoutUser())}>
+              <icons.PiSignOutFill  />
+            </button>
+          ) : (
+            <Link to="/login">
+              <icons.BsBoxArrowInRight />
+            </Link>
+          )}
         </div>
       </div>
     </>

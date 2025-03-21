@@ -5,12 +5,13 @@ import products from "./products.json";
 import { FaTruck, FaXTwitter } from "react-icons/fa6";
 import { BsTruck, BsBoxArrowInRight } from "react-icons/bs";
 import { CiDollar, CiHeart } from "react-icons/ci";
-import { AiOutlineCustomerService } from "react-icons/ai";
+import { AiOutlineCustomerService ,AiOutlineShoppingCart} from "react-icons/ai";
 import { MdOutlineShoppingBag } from "react-icons/md";
-import { IoBagCheckOutline } from "react-icons/io5";
+import { IoBagCheckOutline,IoEyeOutline } from "react-icons/io5";
 import { FaInstagram, FaFacebookSquare, FaArrowLeft } from "react-icons/fa";
 
 import { TbBrandYoutube } from "react-icons/tb";
+
 
 import NotFoundImage from "./Images/NotFoundImage.jpg";
 import {
@@ -20,6 +21,9 @@ import {
 } from "react-icons/fc";
 import { GrPowerReset } from "react-icons/gr";
 import { GiJewelCrown } from "react-icons/gi";
+import { PiSignOutFill  } from "react-icons/pi";
+import { IoIosHeartEmpty } from "react-icons/io";
+
 
 const icons = {
   FaTruck,
@@ -40,6 +44,10 @@ const icons = {
   GrPowerReset,
   GiJewelCrown,
   FcElectricalSensor,
+  PiSignOutFill ,
+  AiOutlineShoppingCart,
+  IoEyeOutline,
+  IoIosHeartEmpty,
 };
 
 const servicesType = [

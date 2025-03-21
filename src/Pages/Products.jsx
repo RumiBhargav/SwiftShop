@@ -1,21 +1,39 @@
 import React, { useState } from "react";
-import { categories, icons ,products} from "../assets";
+import { categories} from "../assets";
 import Banner1 from "../Components/Banner1";
 import TopProducts from "../Components/TopProducts";
 
+
+import useFetchProduct from "../CustomHooks/useFetchProduct";
+
 const Products = () => {
-  const [filtered,setFiltered]=useState(products.products);
+  const products=useFetchProduct();
+  const [filtered,setFiltered]=useState(products);
+  
+
+  
   const  handleCategory = (category) => {
     // console.log(category);
     if(category === "reset"){
-      setFiltered(products.products);
+      setFiltered(products);
   }
   else{
-    const newProducts = products.products.filter((item) => item.category === category);
+    const newProducts = products.filter((item) => item.category === category);
     setFiltered(newProducts);
   }
 
 }
+
+// useEffect(() => {
+// const fetchProducts=onSnapshot(collection(db,"products"),(snapshot)=>{
+//  // const products = snapshot.docs.map((doc) => ({id:doc.id,...doc.data()}));
+//   setFetchProducts( snapshot.docs.map((doc) => ({id:doc.id,...doc.data()})));  
+// }
+// );
+// return ()=>fetchProducts();
+
+// },[]);
+
 
   return (
     <div>
@@ -53,7 +71,7 @@ const Products = () => {
 <Banner1/>
      </div>
      <div className="mt-12">
-      <TopProducts title={"Our Products"} products={products.products}/>
+      <TopProducts title={"Our Products"} products={products}/>
 
      </div>
     </div>

@@ -39,10 +39,51 @@
 // }
 
 // export default SignUp
-import React from 'react';
-import { Link } from 'react-router-dom';
+
+
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { registerUser } from '../redux/reducers/AuthReducer';
+
 
 const SignUp = () => {
+  const  navigate=useNavigate();
+  const dispatch=useDispatch();
+  const [userData,setUserData]=useState({
+    firstName:'',
+    lastName:'',
+    email:'',
+    phone:'',
+    password:'',
+      confirmPassword:'',
+  });
+  const handleChange=(e)=>{
+    setUserData({...userData,[e.target.name]:e.target.value})
+  }
+  const handleSubmit=async(e)=>{
+  e.preventDefault();
+  const response=await dispatch(registerUser(userData));
+  if (response.type === "auth/register/fulfilled") {
+    setUserData({
+      firstName:'',
+      lastName:'',
+      email:'',
+      phone:'',
+      password:'',
+      confirmPassword:'',
+    })
+    navigate("/");
+  }
+  // setUserData({
+  //   firstName:'',
+  //   lastName:'',
+  //   email:'',
+  //   phone:'',
+  //   password:'',
+  //   confirmPassword:'',
+  // })
+  }
 
   
   return (
@@ -52,19 +93,20 @@ const SignUp = () => {
       {/* Form Section */}
       <div className='w-full max-w-sm bg-white p-6 shadow-xl rounded-lg'>
         <h1 className='text-gray-800 text-3xl font-semibold italic mb-6 text-center'>Create an Account</h1>
-        <form className='flex flex-col gap-4'>
-          <input type='text' placeholder='First Name' className='border border-gray-300 rounded-lg p-3 text-sm w-full focus:outline-none focus:ring-2 focus:ring-blue-500' />
-          <input type='email' placeholder='Email Address' className='border border-gray-300 rounded-lg p-3 text-sm w-full focus:outline-none focus:ring-2 focus:ring-blue-500' />
-          <input type='tel' placeholder='Phone Number' className='border border-gray-300 rounded-lg p-3 text-sm w-full focus:outline-none focus:ring-2 focus:ring-blue-500' />
-          <input type='password' placeholder='Password' className='border border-gray-300 rounded-lg p-3 text-sm w-full focus:outline-none focus:ring-2 focus:ring-blue-500' />
-          <input type='password' placeholder='Confirm Password' className='border border-gray-300 rounded-lg p-3 text-sm w-full focus:outline-none focus:ring-2 focus:ring-blue-500' />
+        <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
+          <input onChange={handleChange} value={userData.firstName} name="firstName" type='text' placeholder='First Name' className='border border-gray-300 rounded-lg p-3 text-sm w-full focus:outline-none focus:ring-2 focus:ring-blue-500' />
+          <input onChange={handleChange} value={userData.lastName} name="lastName" type='text' placeholder='Last Name' className='border border-gray-300 rounded-lg p-3 text-sm w-full focus:outline-none focus:ring-2 focus:ring-blue-500' />
+          <input onChange={handleChange} value={userData.email} name="email"type='email' placeholder='Email Address' className='border border-gray-300 rounded-lg p-3 text-sm w-full focus:outline-none focus:ring-2 focus:ring-blue-500' />
+          <input onChange={handleChange} value={userData.phone} name="phone" type='tel' placeholder='Phone Number' className='border border-gray-300 rounded-lg p-3 text-sm w-full focus:outline-none focus:ring-2 focus:ring-blue-500' />
+          <input onChange={handleChange} value={userData.password} name="password" type='password' placeholder='Password' className='border border-gray-300 rounded-lg p-3 text-sm w-full focus:outline-none focus:ring-2 focus:ring-blue-500' />
+          <input onChange={handleChange} value={userData.confirmPassword} name="confirmPassword" type='password' placeholder='Confirm Password' className='border border-gray-300 rounded-lg p-3 text-sm w-full focus:outline-none focus:ring-2 focus:ring-blue-500' />
           
           <div className='flex items-center gap-2'>
             <input type='checkbox' className='w-4 h-4' />
             <p className='text-sm text-gray-600'>I accept the terms and conditions</p>
           </div>
           
-          <button className='bg-blue-600 text-white py-3 rounded-lg text-sm font-medium hover:bg-blue-700 transition'>Join Now</button>
+          <button type="submit" className='bg-blue-600 text-white py-3 rounded-lg text-sm font-medium hover:bg-blue-700 transition'>Join Now</button>
         </form>
         
         <p className='text-sm text-center mt-4 text-gray-600'>
